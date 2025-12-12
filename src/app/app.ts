@@ -29,15 +29,17 @@ export class App {
     required(schemaPath.name, { message: 'Name is required' });
     required(schemaPath.age, { message: 'Age is required' });
     validate(schemaPath.age, ({ value }) => {
-      if (value() < 18 || value() > 65) {
-        return null;
-      }
       if (value() < 0) {
         return {
           kind: 'age-error',
           message: 'Age must be non-negative',
         };
       }
+
+      if (value() < 18 || value() > 65) {
+        return null;
+      }
+
       return {
         kind: 'age-error',
         message: 'Age must be between lower than 18 or higher than 65',

@@ -5,21 +5,26 @@
   <form (submit)="onSubmit($event)" class="person-form" novalidate>
     <div class="form-group">
       <label for="name-input">
-        Name:
-        <input
-          id="name-input"
-          type="text"
-          [field]="personForm.name"
-          [attr.aria-invalid]="
-            personForm.name().touched() ? (personForm.name().invalid() ? 'true' : 'false') : null
-          "
-          [attr.aria-valid]="
-            personForm.name().touched() && personForm.name().valid() ? 'true' : null
-          "
-          [attr.aria-describedby]="
-            personForm.name().touched() && personForm.name().invalid() ? 'name-errors' : null
-          "
-        />
+        <span class="label-content">
+          <span class="icon icon-user" aria-hidden="true"></span>
+          Name:
+        </span>
+        <div class="input-wrapper">
+          <input
+            id="name-input"
+            type="text"
+            [field]="personForm.name"
+            [attr.aria-invalid]="
+              personForm.name().touched() ? (personForm.name().invalid() ? 'true' : 'false') : null
+            "
+            [attr.aria-valid]="
+              personForm.name().touched() && personForm.name().valid() ? 'true' : null
+            "
+            [attr.aria-describedby]="
+              personForm.name().touched() && personForm.name().invalid() ? 'name-errors' : null
+            "
+          />
+        </div>
       </label>
       @if (personForm.name().touched() && personForm.name().invalid()) {
       <ul id="name-errors" class="error-list" role="alert" aria-live="polite">
@@ -32,19 +37,26 @@
 
     <div class="form-group">
       <label for="age-input">
-        Age:
-        <input
-          id="age-input"
-          type="number"
-          [field]="personForm.age"
-          [attr.aria-invalid]="
-            personForm.age().touched() ? (personForm.age().invalid() ? 'true' : 'false') : null
-          "
-          [attr.aria-valid]="personForm.age().touched() && personForm.age().valid() ? 'true' : null"
-          [attr.aria-describedby]="
-            personForm.age().touched() && personForm.age().invalid() ? 'age-errors' : null
-          "
-        />
+        <span class="label-content">
+          <span class="icon icon-calendar" aria-hidden="true"></span>
+          Age:
+        </span>
+        <div class="input-wrapper">
+          <input
+            id="age-input"
+            type="number"
+            [field]="personForm.age"
+            [attr.aria-invalid]="
+              personForm.age().touched() ? (personForm.age().invalid() ? 'true' : 'false') : null
+            "
+            [attr.aria-valid]="
+              personForm.age().touched() && personForm.age().valid() ? 'true' : null
+            "
+            [attr.aria-describedby]="
+              personForm.age().touched() && personForm.age().invalid() ? 'age-errors' : null
+            "
+          />
+        </div>
       </label>
       @if (personForm.age().touched() && personForm.age().invalid()) {
       <ul id="age-errors" class="error-list" role="alert" aria-live="polite">
@@ -56,7 +68,8 @@
     </div>
 
     <button type="submit" [disabled]="personForm.name().invalid() || personForm.age().invalid()">
-      Submit
+      <span>Submit</span>
+      <span class="icon icon-arrow-right" aria-hidden="true"></span>
     </button>
   </form>
 

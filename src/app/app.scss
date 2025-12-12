@@ -11,13 +11,61 @@
   margin-bottom: 1rem;
 }
 
-// Error list styling - PicoCSS doesn't have specific error styling
-.error-list {
-  color: var(--pico-del-color, #c00);
-  font-size: 0.875rem;
-  margin: 0.5rem 0 0 0;
-  padding-left: 1.25rem;
-  list-style-type: disc;
+// Base icon class using mask-image
+.icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  background-color: currentColor; // Inherit text color from parent
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  -webkit-mask-position: center;
+}
+
+// Label icon styling
+.label-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+// Specific icon classes
+.icon-user {
+  mask-image: url('/mageicons/stroke/User.svg');
+  -webkit-mask-image: url('/mageicons/stroke/User.svg');
+}
+
+.icon-calendar {
+  mask-image: url('/mageicons/stroke/Calendar.svg');
+  -webkit-mask-image: url('/mageicons/stroke/Calendar.svg');
+}
+
+.icon-arrow-right {
+  mask-image: url('/mageicons/stroke/Arrow Right.svg');
+  -webkit-mask-image: url('/mageicons/stroke/Arrow Right.svg');
+}
+
+// Input wrapper for validation icons
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper input {
+  flex: 1;
+  padding-right: 2.5rem; // Make room for validation icon
+}
+
+.input-wrapper .icon {
+  position: absolute;
+  right: 0.75rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  pointer-events: none;
 }
 
 // Prevent default browser validation styling
@@ -29,6 +77,18 @@ input:invalid {
 input[aria-invalid='true'] {
   border-color: var(--pico-del-color, #c00);
 }
+
+// Error list styling - PicoCSS doesn't have specific error styling
+.error-list {
+  color: var(--pico-del-color, #c00);
+  font-size: 0.875rem;
+  margin: 0.5rem 0 0 0;
+  padding-left: 1.25rem;
+  list-style-type: disc;
+}
+
+// All icons use PicoCSS text color via background-color: currentColor
+// This is set in the base .icon class
 
 // Form info section
 .form-info {
@@ -50,4 +110,19 @@ input[aria-invalid='true'] {
   padding: 0.75rem;
   background-color: var(--pico-card-background-color, #f8f9fa);
   border-radius: var(--pico-border-radius, 0.25rem);
+}
+
+// Button icon styling
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+button .icon-arrow-right {
+  width: 1.25rem;
+  height: 1.25rem;
+  // Button icons inherit button text color via background-color: currentColor
+  background-color: currentColor;
 }
