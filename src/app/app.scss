@@ -1,0 +1,53 @@
+// Minimal custom styles that work with PicoCSS classless
+// PicoCSS handles most semantic HTML styling (h1, h2, form, input, button, etc.)
+
+.form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+// Error list styling - PicoCSS doesn't have specific error styling
+.error-list {
+  color: var(--pico-del-color, #c00);
+  font-size: 0.875rem;
+  margin: 0.5rem 0 0 0;
+  padding-left: 1.25rem;
+  list-style-type: disc;
+}
+
+// Prevent default browser validation styling
+input:invalid {
+  box-shadow: none;
+}
+
+// Only style invalid inputs when they explicitly have aria-invalid='true' (touched and invalid)
+input[aria-invalid='true'] {
+  border-color: var(--pico-del-color, #c00);
+}
+
+// Form info section
+.form-info {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: var(--pico-background-color, #fff);
+  border: 1px solid var(--pico-border-color, #dee2e6);
+  border-radius: var(--pico-border-radius, 0.25rem);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.info-grid > div {
+  padding: 0.75rem;
+  background-color: var(--pico-card-background-color, #f8f9fa);
+  border-radius: var(--pico-border-radius, 0.25rem);
+}
