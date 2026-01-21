@@ -27,11 +27,11 @@
         </div>
       </label>
       @if (personForm.name().touched() && personForm.name().invalid()) {
-      <ul id="name-errors" class="error-list" role="alert" aria-live="polite">
-        @for (error of personForm.name().errors(); track error) {
-        <li>{{ error.message }}</li>
-        }
-      </ul>
+        <ul id="name-errors" class="error-list" role="alert" aria-live="polite">
+          @for (error of personForm.name().errors(); track error) {
+            <li>{{ error.message }}</li>
+          }
+        </ul>
       }
     </div>
 
@@ -59,15 +59,15 @@
         </div>
       </label>
       @if (personForm.age().touched() && personForm.age().invalid()) {
-      <ul id="age-errors" class="error-list" role="alert" aria-live="polite">
-        @for (error of personForm.age().errors(); track error) {
-        <li>{{ error.message }}</li>
-        }
-      </ul>
+        <ul id="age-errors" class="error-list" role="alert" aria-live="polite">
+          @for (error of personForm.age().errors(); track error) {
+            <li>{{ error.message }}</li>
+          }
+        </ul>
       }
     </div>
 
-    <button type="submit" [disabled]="personForm.name().invalid() || personForm.age().invalid()">
+    <button type="submit" [disabled]="personForm().invalid()">
       <span>Submit</span>
       <span class="icon icon-arrow-right" aria-hidden="true"></span>
     </button>

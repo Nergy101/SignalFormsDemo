@@ -47,15 +47,10 @@ export class App {
     });
   });
 
+  // Read the current model and perform submit logic
   onSubmit(event: Event) {
     event.preventDefault();
-    // Read the current model and perform submit logic
     const person = this.personModel();
-    // Basic runtime validation for age being a non-negative number
-    if (typeof person.age !== 'number' || Number.isNaN(person.age)) {
-      console.warn('Age must be a number');
-      return;
-    }
     console.log('Submitted person:', person);
     // e.g., send person to an API or service
   }
