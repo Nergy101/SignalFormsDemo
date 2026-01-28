@@ -87,6 +87,33 @@ input[aria-invalid='true'] {
   list-style-type: disc;
 }
 
+// Pending validation message styling
+.pending-message {
+  color: var(--pico-muted-color, #6c757d);
+  font-size: 0.875rem;
+  margin: 0.5rem 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+// Spinner animation
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--pico-muted-color, #6c757d);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 // All icons use PicoCSS text color via background-color: currentColor
 // This is set in the base .icon class
 

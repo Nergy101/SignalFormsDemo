@@ -1,10 +1,16 @@
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { form, Field, required, validate } from '@angular/forms/signals';
+import { HttpClient } from '@angular/common/http';
+import { form, Field, required, validate, validateHttp, debounce } from '@angular/forms/signals';
 
 interface Person {
   name: string;
   age: number;
+}
+
+interface ValidationResponse {
+  valid: boolean;
+  error: string | null;
 }
 
 @Component({
@@ -16,6 +22,7 @@ interface Person {
 })
 export class App {
   protected readonly title = signal('Person Forms Demo');
+  private readonly http = inject(HttpClient);
 
   // Step 1: Create a form model with signal()
   personModel = signal<Person>({
@@ -28,6 +35,50 @@ export class App {
     // Add validation rules
     required(schemaPath.name, { message: 'Name is required' });
     required(schemaPath.age, { message: 'Age is required' });
+
+    // Debounce the name field to delay validation until user stops typing
+    debounce(schemaPath.name, 500); // Wait 500ms after user stops typing
+
+    // Use Angular's built-in validateHttp for HTTP validation with pending() state
+    validateHttp(schemaPath.name, {
+      // Function that returns the URL string for the HTTP request
+      request: ({ value }) => {
+        const nameValue = value();
+        // Skip HTTP validation if name is empty (required validator handles this)
+        if (!nameValue || nameValue.trim() === '') {
+          return undefined;
+        }
+
+        // Return the URL string - validateHttp will make the GET request
+        const url = `http://localhost:3001/verify?name=${encodeURIComponent(nameValue)}`;
+        console.log('Validating via HTTP:', url);
+        return url;
+      },
+      // Map the server response to validation errors
+      onSuccess: (response: ValidationResponse) => {
+        if (response.valid) {
+          return []; // Valid - no errors
+        } else {
+          return [
+            {
+              kind: 'name-error',
+              message: response.error || 'Invalid name',
+            },
+          ];
+        }
+      },
+      // Handle HTTP errors
+      onError: (error: unknown) => {
+        console.error('Validation error:', error);
+        return [
+          {
+            kind: 'name-error',
+            message: 'Validation failed. Please try again.',
+          },
+        ];
+      },
+    });
+
     validate(schemaPath.age, ({ value }) => {
       if (value() < 0) {
         return {

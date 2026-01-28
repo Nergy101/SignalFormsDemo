@@ -1,16 +1,57 @@
 # SignalFormsDemo
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.0.
+This project demonstrates Angular Signal Forms with async HTTP validation using a real API server.
+
+## Quick Start
+
+### Run Everything Together (Recommended)
+
+Start both the API server and Angular app:
+
+```bash
+npm run dev
+```
+
+This will:
+- Start the API server on `http://localhost:3001`
+- Start the Angular dev server on `http://localhost:4200`
+- Open `http://localhost:4200` in your browser
+
+### Run Separately
+
+**Terminal 1 - Start API Server:**
+```bash
+npm run server
+```
+
+**Terminal 2 - Start Angular App:**
+```bash
+npm start
+```
+
+## Features
+
+- ✅ Real HTTP validation using Angular HttpClient
+- ✅ Async validation with pending state
+- ✅ Spinner animation during validation
+- ✅ Express.js API server for name validation
+- ✅ Signal-based reactive forms
+
+## API Server
+
+The project includes a simple Express.js API server (`server.js`) that validates names. See [API_SERVER.md](./API_SERVER.md) for details.
 
 ## Development server
 
-To start a local development server, run:
+To start just the Angular development server:
 
 ```bash
 ng serve
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+**Note:** The Angular app requires the API server to be running for validation to work.
 
 ## Code scaffolding
 

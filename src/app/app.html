@@ -15,23 +15,45 @@
             type="text"
             [field]="personForm.name"
             [attr.aria-invalid]="
-              personForm.name().touched() ? (personForm.name().invalid() ? 'true' : 'false') : null
+              personForm.name().touched() && !personForm.name().pending()
+                ? (personForm.name().invalid() ? 'true' : 'false')
+                : null
             "
             [attr.aria-valid]="
-              personForm.name().touched() && personForm.name().valid() ? 'true' : null
+              personForm.name().touched() && personForm.name().valid() && !personForm.name().pending() ? 'true' : null
+            "
+            [attr.aria-busy]="personForm.name().pending() ? 'true' : null"
+            [attr.aria-label]="
+              personForm.name().pending()
+                ? 'Name (validating)'
+                : 'Name'
             "
             [attr.aria-describedby]="
-              personForm.name().touched() && personForm.name().invalid() ? 'name-errors' : null
+              personForm.name().touched()
+                ? (personForm.name().pending()
+                    ? 'name-pending'
+                    : personForm.name().invalid()
+                    ? 'name-errors'
+                    : null)
+                : null
             "
           />
         </div>
       </label>
-      @if (personForm.name().touched() && personForm.name().invalid()) {
-        <ul id="name-errors" class="error-list" role="alert" aria-live="polite">
-          @for (error of personForm.name().errors(); track error) {
-            <li>{{ error.message }}</li>
-          }
-        </ul>
+      @if (personForm.name().touched()) {
+        @if (personForm.name().pending()) {
+          <div id="name-pending" class="pending-message" role="status" aria-live="polite" aria-label="Validation in progress">
+            <span class="spinner" aria-hidden="true"></span>
+            Validating...
+          </div>
+        }
+        @if (personForm.name().invalid() && !personForm.name().pending()) {
+          <ul id="name-errors" class="error-list" role="alert" aria-live="polite">
+            @for (error of personForm.name().errors(); track error) {
+              <li>{{ error.message }}</li>
+            }
+          </ul>
+        }
       }
     </div>
 
@@ -84,6 +106,7 @@
       <div><strong>Age Touched:</strong> {{ personForm.age().touched() }}</div>
       <div><strong>Name Dirty:</strong> {{ personForm.name().dirty() }}</div>
       <div><strong>Age Dirty:</strong> {{ personForm.age().dirty() }}</div>
+      <div><strong>Name Pending:</strong> {{ personForm.name().pending() }}</div>
     </div>
   </div>
 </div>
